@@ -9,6 +9,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3><a class="text-primary" href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
+                        <small>Written by {{$post->user_name}}</small>
                         <small>Written on {{$post->created_at}}</small>
                     </div>
                 </div>
