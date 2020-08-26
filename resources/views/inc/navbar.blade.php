@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-black shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'RotexSolution') }}
@@ -33,11 +33,10 @@
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="/profiles">
+                        <a class="nav-link" href="/profiles">
                                 <span>{{ Auth::user()->username }}</span>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

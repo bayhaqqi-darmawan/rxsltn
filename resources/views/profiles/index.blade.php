@@ -2,7 +2,7 @@
 
 @section('content')
 
-    
+
 
     <table class="table table-dark">
         <thead>
@@ -39,4 +39,9 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="visible-print text-center">
+        {{-- {!! QrCode::size(100)->generate(Request::url()); !!} --}}
+        {!! QrCode::size(100)->generate('rotexsolution.com/profiles'); !!}
+    </div>
 @endsection
