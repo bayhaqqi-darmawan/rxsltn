@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/','PagesController@index');
-Route::get('/services','PagesController@services');
+// Route::get('/services','PagesController@services');
 
 Route::resource('posts', 'PostsController');
 // Route::resource('profiles', 'ProfilesController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('roadtax', 'RoadtaxController');
 Route::resource('bluecards', 'BluecardsController');
 // Route::get('/bluecards/create', 'BluecardsController@create');

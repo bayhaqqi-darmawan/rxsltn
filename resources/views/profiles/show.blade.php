@@ -36,14 +36,7 @@
                 </tr>
             </tbody>
         </table>
-
-            {{-- @if ($bluecards->upload_img)
-                <img style="width:80%" src="{{ asset('/storage/upload_imgs/'.$bluecards->upload_img) }}">
-
-                @else
-                <h3>You have not submitted any bluecards</h3>
-            @endif --}}
-
+        
             @if($bluecards)
                 @if ($bluecards->user_ic == Auth::user()->ic_number)
                     <img style="width:80%" src="{{ asset('/storage/upload_imgs/'.$bluecards->upload_img) }}">
