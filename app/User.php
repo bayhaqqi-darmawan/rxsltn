@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $primaryKey = 'ic_number';
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,4 +43,9 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany('App\Post');
     }
+
+    public function bluecards(){
+        return $this->hasMany('App\Bluecard');
+    }
+
 }

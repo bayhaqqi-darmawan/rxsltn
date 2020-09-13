@@ -28,8 +28,6 @@
             @endif
 
         @endif
-
     </div>
-
 
 @endsection

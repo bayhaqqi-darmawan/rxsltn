@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
      // Primary Key
-     public $primaryKey = 'id';
+     protected $primaryKey = 'ic_number';
 
      // Timestamps
      // it is true by default tho
      public $timestamps = true;
+
+     public function bluecards() {
+        return $this->belongsTo('App\Bluecard');
+    }
 }

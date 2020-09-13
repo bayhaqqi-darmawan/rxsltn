@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bluecard;
-use App\User;
 
-class ProfilesController extends Controller
+class BluecardsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,7 +24,9 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
+        $bluecards = Bluecard::all();
+
+        return view('bluecards.index')->with('bluecards', $bluecards);
     }
 
     /**
@@ -35,7 +36,7 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        //
+        return view('bluecards.create');
     }
 
     /**
@@ -46,7 +47,23 @@ class ProfilesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'upload_img' => 'image|nullable|max:1999'
+        ]);
+
+        // Handle File Upload
+        if($request->hasFile('upload_img')){
+            $filename = $request->upload_img->getClientOriginalName();
+            $request->upload_img->storeAs('upload_imgs', $filename, 'public');
+        }
+
+         // Create New
+         $bluecards = new Bluecard;
+         $bluecards->user_ic = auth()->user()->ic_number;
+         $bluecards->upload_img = $filename;
+         $bluecards->save();
+
+         return redirect('/')->with('success', 'File Uploaded');
     }
 
     /**
@@ -55,17 +72,9 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($ic_number)
+    public function show($id)
     {
-        $bluecards = Bluecard::find($ic_number);
-        $user = User::find($ic_number);
-
-        // Check for correct user
-        if(auth()->user()->ic_number !== $user->ic_number){
-            return redirect()->back()->with('error', 'Unauthorized Page!');
-        }
-
-        return view('profiles.show')->with('bluecards', $bluecards);
+        //
     }
 
     /**

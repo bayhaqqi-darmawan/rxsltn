@@ -11,11 +11,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="/posts">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/posts/create">Create Post</a>
+                    </li> --}}
+                    <li class="nav-item">
+                    <a href="/roadtax" class="nav-link">Renew Roadtax</a>
                     </li>
                 </ul>
 
@@ -31,9 +34,10 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
-                    @else
+
+                        @else
                         <li class="nav-item">
-                        <a class="nav-link" href="/profiles">
+                        <a class="nav-link" href="{{ route('profiles.show', Auth::user()->ic_number) }}">
                                 <span>{{ Auth::user()->username }}</span>
                             </a>
                         </li>

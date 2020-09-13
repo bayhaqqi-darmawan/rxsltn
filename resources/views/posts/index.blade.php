@@ -12,12 +12,13 @@
                     <small>Written on {{$post->created_at}} by {{ $post->user->username }}</small>
                     </div>
                 </div>
-        @endforeach
+            @endforeach
 
-        {{$posts->links()}}
+            {{$posts->links()}}
+
+
+            @else
+                <p>No posts found</p>
+        @endif
     </div>
-
-    @else
-        <p>No posts found</p>
-    @endif
 @endsection

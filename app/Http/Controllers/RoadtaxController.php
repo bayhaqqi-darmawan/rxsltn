@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Bluecard;
-use App\User;
 
-class ProfilesController extends Controller
+class RoadtaxController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,7 +13,7 @@ class ProfilesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -25,7 +23,7 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
+        return view('roadtax.index');
     }
 
     /**
@@ -55,17 +53,9 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($ic_number)
+    public function show($id)
     {
-        $bluecards = Bluecard::find($ic_number);
-        $user = User::find($ic_number);
-
-        // Check for correct user
-        if(auth()->user()->ic_number !== $user->ic_number){
-            return redirect()->back()->with('error', 'Unauthorized Page!');
-        }
-
-        return view('profiles.show')->with('bluecards', $bluecards);
+        //
     }
 
     /**
