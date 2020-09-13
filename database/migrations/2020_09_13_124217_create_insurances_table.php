@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBluecardsTable extends Migration
+class CreateInsurancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateBluecardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bluecards', function (Blueprint $table) {
+        Schema::create('insurances', function (Blueprint $table) {
             $table->id();
             $table->string('user_ic');
-            $table->string('plate');
-            $table->date('exp');
-            $table->string('upload_img');
+            $table->date('ins_exp');
+            $table->string('insurance_img');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateBluecardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bluecards');
+        Schema::dropIfExists('insurances');
     }
 }

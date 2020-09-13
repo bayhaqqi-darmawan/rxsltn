@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Bluecard;
 
-class BluecardsController extends Controller
+class InsurancesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -16,7 +15,7 @@ class BluecardsController extends Controller
     {
         $this->middleware('auth');
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +23,7 @@ class BluecardsController extends Controller
      */
     public function index()
     {
-        $bluecards = Bluecard::all();
-
-        return view('bluecards.index')->with('bluecards', $bluecards);
+        //
     }
 
     /**
@@ -36,7 +33,7 @@ class BluecardsController extends Controller
      */
     public function create()
     {
-        return view('bluecards.create');
+        return view('insurances.create');
     }
 
     /**
@@ -48,24 +45,22 @@ class BluecardsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'plate' => 'required',
             'exp' => 'required',
-            'upload_img' => 'image|nullable|max:1999'
+            'insurance_img' => 'image|nullable|max:1999'
         ]);
 
         // Handle File Upload
-        if($request->hasFile('upload_img')){
-            $filename = $request->upload_img->getClientOriginalName();
-            $request->upload_img->storeAs('upload_imgs', $filename, 'public');
+        if($request->hasFile('insurance_img')){
+            $filename = $request->insurance_img->getClientOriginalName();
+            $request->insurance_img->storeAs('insurance_imgs', $filename, 'public');
         }
 
          // Create New
-         $bluecards = new Bluecard;
-         $bluecards->user_ic = auth()->user()->ic_number;
-         $bluecards->upload_img = $filename;
-         $bluecards->exp = $request->input('exp');
-         $bluecards->plate = $request->input('plate');
-         $bluecards->save();
+         $insurances = new Insurance;
+         $insurances->user_ic = auth()->user()->ic_number;
+         $insurances->upload_img = $filename;
+         $insurances->exp = $request->input('exp');
+         $insurances->save();
 
          return redirect('/')->with('success', 'File Uploaded');
     }
