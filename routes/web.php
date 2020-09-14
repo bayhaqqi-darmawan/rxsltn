@@ -19,12 +19,13 @@ Route::get('/','PagesController@index');
 Route::resource('posts', 'PostsController');
 // Route::resource('profiles', 'ProfilesController');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('roadtax', 'RoadtaxController');
 Route::resource('bluecards', 'BluecardsController');
 Route::resource('insurances', 'InsurancesController');
+Route::resource('admins', 'AdminsController');
 // Route::get('/bluecards/create', 'BluecardsController@create');
 
-Route::get('/profiles/{ic_number}', 'ProfilesController@show')->name('profiles.show');
+Route::get('/profiles/{ic_number}', 'ProfilesController@show')->name('profiles.show')->middleware('verified');

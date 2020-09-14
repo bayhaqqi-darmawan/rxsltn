@@ -39,7 +39,7 @@
 
             @if($bluecards)
                 @if ($bluecards->user_ic == Auth::user()->ic_number)
-                    <img style="width:80%" src="{{ asset('/storage/upload_imgs/'.$bluecards->upload_img) }}">
+                    <img style="width:65%" src="{{ asset('/storage/upload_imgs/'.$bluecards->upload_img) }}">
                     <br>
                     <h2>Plate: {{ $bluecards->plate }}</h2>
                     <h2>Expiry Date: {{ $bluecards->exp }}</h2>
