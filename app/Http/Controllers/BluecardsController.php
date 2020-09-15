@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bluecard;
+use Illuminate\Support\Str;
 
 class BluecardsController extends Controller
 {
@@ -48,7 +49,8 @@ class BluecardsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'plate' => 'required',
+            'plate' => ['required', 'max:3'],
+            'number' => ['required', 'max:4'],
             'exp' => 'required',
             'upload_img' => 'image|nullable|max:1999'
         ]);
@@ -64,7 +66,8 @@ class BluecardsController extends Controller
          $bluecards->user_ic = auth()->user()->ic_number;
          $bluecards->upload_img = $filename;
          $bluecards->exp = $request->input('exp');
-         $bluecards->plate = $request->input('plate');
+         $bluecards->plate = Str::upper($request->input('plate'));
+         $bluecards->number = $request->input('number');
          $bluecards->save();
 
          return redirect('/')->with('success', 'File Uploaded');

@@ -17,6 +17,7 @@ class CreateBluecardsTable extends Migration
             $table->id();
             $table->string('user_ic');
             $table->string('plate');
+            $table->integer('number');
             $table->date('exp');
             $table->string('upload_img');
             $table->timestamps();

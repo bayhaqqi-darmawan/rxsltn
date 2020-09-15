@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Bluecard;
 
 class RoadtaxController extends Controller
 {
@@ -23,7 +24,9 @@ class RoadtaxController extends Controller
      */
     public function index()
     {
-        return view('roadtax.index');
+        $bluecards = Bluecard::all();
+
+        return view('roadtax.index')->with('bluecards', $bluecards);
     }
 
     /**

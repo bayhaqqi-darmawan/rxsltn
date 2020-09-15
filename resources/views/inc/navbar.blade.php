@@ -11,15 +11,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="/posts">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts/create">Create Post</a>
-                    </li> --}}
-                    <li class="nav-item">
-                    <a href="/roadtax" class="nav-link">Renew Roadtax</a>
-                    </li>
+                    @guest
+                        @else
+                            @if (Auth::user()->role == "admin")
+                                <li class="nav-item">
+                                    <a href="/admins" class="nav-link">Admin Panel</a>
+                                </li>
+
+                                @else
+                                    <li class="nav-item">
+                                        <a href="/dashboard" class="nav-link">Dashboard</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="/roadtax" class="nav-link">Renew Roadtax</a>
+                                    </li>
+                            @endif
+                    @endguest
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -29,6 +37,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
+
                         @if (Route::has('register'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -36,22 +45,38 @@
                         @endif
 
                         @else
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profiles.show', Auth::user()->ic_number) }}">
-                                <span>{{ Auth::user()->username }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+                            @if (Auth::user()->role == "admin")
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                </form>
-                        </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                        </form>
+                                </li>
+
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('profiles.show', Auth::user()->ic_number) }}">
+                                            <span>{{ Auth::user()->username }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                            </form>
+                                    </li>
+                            @endif
+
                     @endguest
                 </ul>
             </div>

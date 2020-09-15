@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('ic_number')->unique();
             $table->bigInteger('phone_number');
             $table->string('address');
+            $table->enum('role', ['user','admin'])->default('user');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

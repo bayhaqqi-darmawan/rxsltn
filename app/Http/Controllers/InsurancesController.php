@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Insurance;
 
 class InsurancesController extends Controller
 {
@@ -15,7 +16,7 @@ class InsurancesController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +46,7 @@ class InsurancesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'exp' => 'required',
+            'ins_exp' => 'required',
             'insurance_img' => 'image|nullable|max:1999'
         ]);
 
@@ -58,11 +59,11 @@ class InsurancesController extends Controller
          // Create New
          $insurances = new Insurance;
          $insurances->user_ic = auth()->user()->ic_number;
-         $insurances->upload_img = $filename;
-         $insurances->exp = $request->input('exp');
+         $insurances->insurance_img = $filename;
+         $insurances->ins_exp = $request->input('ins_exp');
          $insurances->save();
 
-         return redirect('/')->with('success', 'File Uploaded');
+         return redirect('/dashboard')->with('success', 'File Uploaded');
     }
 
     /**

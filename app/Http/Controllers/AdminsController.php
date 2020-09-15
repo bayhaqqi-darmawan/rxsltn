@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Bluecard;
+use App\Insurance;
 
 class AdminsController extends Controller
 {
@@ -15,9 +17,14 @@ class AdminsController extends Controller
     public function index()
     {
         $users = User::all();
-        // $users = User::orderBy('created_at','asc');
+        $bluecard_exp = Bluecard::all();
+        $insurance_exp = Insurance::all();
 
-        return view('admins.index')->with('users', $users);
+        $user_ic = auth()->user()->ic_number;
+        $bluecards = Bluecard::find($user_ic);
+        $insurances = Insurance::find($user_ic);
+
+        return view('admins.index', compact('bluecard_exp', 'insurance_exp', 'bluecards', 'insurances', 'users'));
     }
 
     /**
@@ -47,9 +54,18 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($ic_number)
     {
-        //
+        $user = User::find($ic_number);
+        $bluecards = Bluecard::find($ic_number);
+        $insurances = Insurance::find($ic_number);
+
+        // // Check for correct user
+        // if(auth()->user()->role !== "admin"){
+        //     return redirect()->back()->with('error', 'Unauthorized Page!');
+        // }
+
+        return view('admins.show')->with('user', $user)->with('bluecards', $bluecards)->with('insurances', $insurances);
     }
 
     /**

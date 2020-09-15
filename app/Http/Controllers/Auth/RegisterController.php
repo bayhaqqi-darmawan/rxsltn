@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/profiles/show';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'ic_number' => ['required', 'string', 'digits:8', 'unique:users'],
             'phone_number' => ['required', 'numeric', 'digits:10'],
             'address' => ['required', 'string', 'max:255'],
+            'role' => ['enum', 'default:user'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);

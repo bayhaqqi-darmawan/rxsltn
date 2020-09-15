@@ -19,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'fullname', 'ic_number', 'phone_number', 'address', 'email', 'password',
+        'username', 'fullname', 'ic_number', 'phone_number', 'address', 'role', 'email', 'password',
     ];
 
     /**
@@ -40,9 +40,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts(){
-        return $this->hasMany('App\Post');
-    }
+    public function isUser() {
+        return $this->role === 'user';
+     }
+
+    public function isAdmin() {
+        return $this->role === 'admin';
+     }
 
     public function bluecards(){
         return $this->hasMany('App\Bluecard');

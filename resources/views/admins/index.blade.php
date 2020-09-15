@@ -2,19 +2,39 @@
 
 @section('content')
     <div class="container">
-        <h1>Users</h1>
+        <table class="table table-bordered">
+            <tr>
+                <th scope="col" colspan="4" class="text-center">User List</th>
+            </tr>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">IC -Number</th>
+                <th scope="col">Created at</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
 
-        @if(count($users)> 0)
-            @foreach($users as $user)
-                <div class="card">
-                    <div class="card-body">
-                        <h3><a class="text-primary" href="/admins/{{$users->ic_number}}">{{$users->username}}</a></h3>
-                    </div>
-                </div>
-            @endforeach
+                @if(count($users)> 0)
+                    @foreach($users as $user)
+                    <tr>
+                        @if ($user->role !== 'admin')
+                        <td>
+                        <a href="/admins/{{$user ->ic_number}}">{{$user->username}}</a>
+                        </td>
+                        <td>
+                            {{$user->ic_number}}
+                        </td>
+                        <td>
+                            {{$user->created_at}}
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-warning" href="#" role="button">Approve!</a>
+                        </td>
+                        @endif
+                    @endforeach
+                @endif
+            </tr>
+        </table>
 
-            @else
-                <p>No posts found</p>
-        @endif
+
     </div>
 @endsection

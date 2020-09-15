@@ -8,4 +8,8 @@ class Admin extends Model
 {
     //Table Name
     protected $table = 'admins';
+
+    public function isAdmin() {
+        return $this->role === 'admin';
+     }
 }

@@ -4,10 +4,10 @@
     <div class="container">
         <h1>Insert Insurance</h1>
 
-        {!! Form::open(['action' => 'BluecardsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['action' => 'InsurancesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
             <div class="form-group">
-                {{Form::label('exp', 'Expiry Date')}}
-                {{Form::date('exp', '', ['class'=>'form-control', 'placeholder'=>'Expiry Date'])}}
+                {{Form::label('ins_exp', 'Insurance Expiry Date')}}
+                {{Form::date('ins_exp', '', ['class'=>'form-control', 'placeholder'=>'Insurance Expiry Date'])}}
             </div>
 
         <div class="form-group">
