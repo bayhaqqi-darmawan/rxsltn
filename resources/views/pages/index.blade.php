@@ -10,7 +10,13 @@
             <p><a class="btn btn-primary btn-lg" href="/login" role="button">Login</a> <a class="btn btn-success btn-lg" href="/register" role="button">Register</a></p>
 
             @else
-            <a class="btn btn-primary btn-lg" href="/dashboard" role="button">Go to your dashboard</a>
+                @if (Auth::user()->role == "admin")
+                    <a class="btn btn-primary btn-lg" href="/admins" role="button">Go to Admin panel</a>
+
+                    @else
+                        <a class="btn btn-primary btn-lg" href="/dashboard" role="button">Go to your dashboard</a>
+                @endif
+
         @endguest
     </header>
 

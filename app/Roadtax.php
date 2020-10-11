@@ -4,15 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bluecard extends Model
+class Roadtax extends Model
 {
     //Table Name
-    public $table = 'bluecards';
-
+    protected $table = 'roadtax';
 
     // Primary Key
     public $primaryKey = 'id';
-    // public $incrementing = false;
+
+    // Timestamps
+    // it is true by default tho
+    public $timestamps = true;
 
     public function user() {
         return $this->belongsTo('App\User');

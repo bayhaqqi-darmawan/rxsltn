@@ -24,7 +24,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="/roadtax" class="nav-link">Renew Roadtax</a>
+                                        <a href="{{ route('roadtax.show', Auth::user()->ic) }}" class="nav-link">Renew Roadtax</a>
                                     </li>
                             @endif
                     @endguest
@@ -60,7 +60,7 @@
 
                                 @else
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('profiles.show', Auth::user()->ic_number) }}">
+                                        <a class="nav-link" href="{{ route('profiles.show', Auth::user()->ic) }}">
                                             <span>{{ Auth::user()->username }}</span>
                                         </a>
                                     </li>

@@ -16,6 +16,9 @@ class CreateInsurancesTable extends Migration
         Schema::create('insurances', function (Blueprint $table) {
             $table->id();
             $table->string('user_ic');
+            $table->string('plate');
+            $table->integer('number');
+            $table->string('plate_number')->unique();
             $table->date('ins_exp');
             $table->string('insurance_img');
             $table->timestamps();

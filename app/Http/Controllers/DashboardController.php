@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Bluecard;
 use App\Insurance;
+use App\Roadtax;
 
 class DashboardController extends Controller
 {
@@ -26,15 +27,24 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $ic_number = auth()->user()->ic_number;
-        $users = User::find($ic_number);
-        $bluecards = Bluecard::find($ic_number);
-        $insurances = Insurance::find($ic_number);
+        $approve = array([
+            0 => 'Not yet sent',
+            1 => 'Approve!',
+            2 => 'Pending',
+            3 => 'Rejected!'
+        ]);
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
+        $bluecards = Bluecard::find($ic);
+        $insurances = Insurance::find($ic);
+        $roadtax = Roadtax::find($ic);
 
         return view('dashboard', [
-            'users' => $users,
+            'user' => $user,
             'bluecards' => $bluecards,
-            'insurances' => $insurances
+            'insurances' => $insurances,
+            'approve' => $approve,
+            'roadtax' => $roadtax
         ]);
     }
 }

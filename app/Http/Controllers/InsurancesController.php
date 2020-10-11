@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Insurance;
+use Illuminate\Support\Str;
 
 class InsurancesController extends Controller
 {
@@ -47,6 +48,9 @@ class InsurancesController extends Controller
     {
         $this->validate($request, [
             'ins_exp' => 'required',
+            'plate' => ['required', 'max:3'],
+            'number' => ['required', 'max:4'],
+            'plate_number' => ['max:7', 'unique:users'],
             'insurance_img' => 'image|nullable|max:1999'
         ]);
 
@@ -58,9 +62,12 @@ class InsurancesController extends Controller
 
          // Create New
          $insurances = new Insurance;
-         $insurances->user_ic = auth()->user()->ic_number;
+         $insurances->user_ic = auth()->user()->ic;
          $insurances->insurance_img = $filename;
          $insurances->ins_exp = $request->input('ins_exp');
+         $insurances->plate = Str::upper($request->input('plate'));
+         $insurances->number = $request->input('number');
+         $insurances->plate_number = Str::upper($request->input('plate')).$request->input('number');
          $insurances->save();
 
          return redirect('/dashboard')->with('success', 'File Uploaded');
@@ -74,7 +81,9 @@ class InsurancesController extends Controller
      */
     public function show($id)
     {
-        //
+        $insurance = Insurance::find($id);
+
+        return view('insurances.show')->with('insurance', $insurance);
     }
 
     /**

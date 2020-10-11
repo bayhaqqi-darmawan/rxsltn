@@ -10,7 +10,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
-    protected $primaryKey = 'ic_number';
+    protected $primaryKey = 'ic';
     public $incrementing = false;
 
     /**
@@ -19,7 +19,14 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'fullname', 'ic_number', 'phone_number', 'address', 'role', 'email', 'password',
+        'username',
+        'fullname',
+        'ic',
+        'phone_number',
+        'address',
+        'role',
+        'email',
+        'password',
     ];
 
     /**
@@ -28,7 +35,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -50,6 +58,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function bluecards(){
         return $this->hasMany('App\Bluecard');
+    }
+
+    public function insurances(){
+        return $this->hasMany('App\Insurance');
+    }
+
+    public function roadtaxes(){
+        return $this->hasMany('App\Roadtax');
     }
 
 }

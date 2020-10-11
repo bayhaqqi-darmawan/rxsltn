@@ -4,37 +4,43 @@
     <div class="container">
         <table class="table table-bordered">
             <tr>
-                <th scope="col" colspan="4" class="text-center">User List</th>
+                <th scope="col" class="text-center" colspan="4">User List</th>
             </tr>
             <tr>
                 <th scope="col">Username</th>
                 <th scope="col">IC -Number</th>
                 <th scope="col">Created at</th>
-                <th scope="col" class="text-center">Actions</th>
+                <th scope="col" class="text-center">Status</th>
             </tr>
 
                 @if(count($users)> 0)
                     @foreach($users as $user)
                     <tr>
                         @if ($user->role !== 'admin')
-                        <td>
-                        <a href="/admins/{{$user ->ic_number}}">{{$user->username}}</a>
-                        </td>
-                        <td>
-                            {{$user->ic_number}}
-                        </td>
-                        <td>
-                            {{$user->created_at}}
-                        </td>
-                        <td class="text-center">
-                            <a class="btn btn-warning" href="#" role="button">Approve!</a>
-                        </td>
+                            <td scope="col">
+                            <a href="/admins/{{$user ->ic}}">{{$user->username}}</a>
+                            </td>
+                            <td scope="col">
+                                {{$user->ic}}
+                            </td>
+                            <td scope="col">
+                                {{$user->created_at}}
+                            </td>
+                            <td scope="col" class="text-center">
+                                @if (count($user->roadtaxes) > 0)
+                                    @foreach ($user->roadtaxes as $roadtax)
+                                        <h5>{{ $roadtax->approval }}</h5>
+                                    @endforeach
+
+
+                                    @else
+                                        <button class="btn btn-default" disabled>Not yet sent</button>
+                                @endif
+                            </td>
                         @endif
                     @endforeach
                 @endif
             </tr>
         </table>
-
-
     </div>
 @endsection

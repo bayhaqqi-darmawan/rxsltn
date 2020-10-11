@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBluecardsTable extends Migration
+class CreateRoadtaxTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateBluecardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bluecards', function (Blueprint $table) {
+        Schema::create('roadtax', function (Blueprint $table) {
             $table->id();
             $table->string('user_ic');
-            $table->string('plate');
-            $table->integer('number');
-            $table->string('plate_number')->unique();
-            $table->date('exp');
-            $table->string('upload_img');
+            $table->integer('selectedBluecard')->unique();
+            $table->integer('selectedInsurance')->unique();
+            $table->enum('approval', ['Approved','Rejected', 'Pending'])->default('Pending');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateBluecardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bluecards');
+        Schema::dropIfExists('roadtax');
     }
 }

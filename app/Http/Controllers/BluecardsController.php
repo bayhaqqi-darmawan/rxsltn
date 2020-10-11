@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bluecard;
+use App\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class BluecardsController extends Controller
 {
@@ -26,8 +28,10 @@ class BluecardsController extends Controller
     public function index()
     {
         $bluecards = Bluecard::all();
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
 
-        return view('bluecards.index')->with('bluecards', $bluecards);
+        return view('bluecards.index', compact('bluecards', 'user'));
     }
 
     /**
@@ -48,11 +52,12 @@ class BluecardsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'plate' => ['required', 'max:3'],
-            'number' => ['required', 'max:4'],
+            'number' => ['required', 'max:4', 'unique:bluecards'],
+            'plate_number' => ['max:7', 'unique:bluecards,plate_number'],
             'exp' => 'required',
-            'upload_img' => 'image|nullable|max:1999'
+            'upload_img' => 'image|required|max:1999'
         ]);
 
         // Handle File Upload
@@ -63,14 +68,15 @@ class BluecardsController extends Controller
 
          // Create New
          $bluecards = new Bluecard;
-         $bluecards->user_ic = auth()->user()->ic_number;
+         $bluecards->user_ic = auth()->user()->ic;
          $bluecards->upload_img = $filename;
          $bluecards->exp = $request->input('exp');
          $bluecards->plate = Str::upper($request->input('plate'));
          $bluecards->number = $request->input('number');
+         $bluecards->plate_number = Str::upper($request->input('plate')).$request->input('number');
          $bluecards->save();
 
-         return redirect('/')->with('success', 'File Uploaded');
+         return redirect('/dashboard')->with('success', 'File Uploaded');
     }
 
     /**
@@ -81,7 +87,9 @@ class BluecardsController extends Controller
      */
     public function show($id)
     {
-        //
+        $bluecard = Bluecard::find($id);
+
+        return view('bluecards.show')->with('bluecard', $bluecard);
     }
 
     /**
@@ -92,7 +100,10 @@ class BluecardsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bluecards = Bluecard::find($id);
+        $user = User::find($id);
+
+        return view('bluecards.edit', compact('bluecards', 'user'));
     }
 
     /**
@@ -104,7 +115,24 @@ class BluecardsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this-> validate($request, [
+            'plate' => ['required', 'max:3'],
+            'number' => ['required', 'max:4'],
+            'plate_number' => ['max:7', 'unique'],
+            'exp' => 'required',
+        ]);
+
+        //Find the user
+
+        $bluecards = Bluecard::find($id);
+        $bluecards->plate = Str::upper($request->input('plate'));
+        $bluecards->number = $request->input('number');
+        $bluecards->plate_number = Str::upper($request->input('plate')).$request->input('number');
+        $bluecards->exp = $request->input('exp');
+        $bluecards-> save();
+
+
+        return view('/dashboard')->with('success', 'Bluecard Updated!');
     }
 
     /**
@@ -115,6 +143,9 @@ class BluecardsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bluecard = Bluecard::where('id', $id);
+        $bluecard->delete();
+
+        return redirect('/dashboard')->with('success', 'Digital Bluecard Removed');
     }
 }

@@ -9,13 +9,13 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">User's Checklist</th>
-            <th scope="col">Action</th>
+            <th scope="col" class="text-center">Action</th>
         </tr>
         <tr>
             <td>1</td>
             <td>Upload Bluecard</td>
-            <td>
-                @if ($bluecards)
+            <td class="text-center">
+                @if (count($user->bluecards)>0)
                     <img src="https://img.icons8.com/office/40/000000/checked-2--v1.png"/>
 
                     @else
@@ -26,8 +26,8 @@
         <tr>
             <td>2</td>
             <td>Upload Insurance</td>
-            <td>
-                @if ($insurances)
+            <td class="text-center">
+                @if (count($user->insurances)>0)
                     <img src="https://img.icons8.com/office/40/000000/checked-2--v1.png"/>
 
                     @else
@@ -38,17 +38,37 @@
         <tr>
             <td>3</td>
             <td>Approval From Admin</td>
-            <td></td>
+            <td class="text-center">
+                {{-- @if (count($user->roadtaxes) > 0 && $approve !== 1)
+                    <p>Pending</p>
+
+                    @if (count($user->roadtaxes) > 0 && $approve == 1)
+                        <p>Approved!</p>
+
+                        @if (count($user->roadtaxes) > 0 && $approve == 3)
+                            <p>Rejected!</p>
+                        @endif
+                    @endif
+
+                    @else
+
+                    <p>You haven't send your records yet!</p>
+                @endif --}}
+
+                @if (count($user->roadtaxes) > 0)
+                    @foreach ($user->roadtaxes as $roadtax)
+
+                    @endforeach
+
+                    <h5>{{ $roadtax->approval }}</h5>
+                @endif
+            </td>
         </tr>
         <tr>
             <td>4</td>
             <td>Payment</td>
             <td>
-                {{-- <form action="{{ url('charge') }}" method="post">
-                    <input type="text" name="amount" />
-                    {{ csrf_field() }}
-                    <input type="submit" name="submit" value="Pay Now">
-                </form> --}}
+
             </td>
         </tr>
     </table>

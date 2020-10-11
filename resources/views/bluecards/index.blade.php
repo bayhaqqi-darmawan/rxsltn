@@ -2,9 +2,14 @@
 
 @section('content')
     <div class="container">
-        @if (Auth::user()->ic_number == $bluecards['user_ic'])
-            <img style="width:80%" src="{{ asset('/storage/upload_imgs/'.$bluecards->upload_img) }}">
-        @endif
+        @if ($bluecards)
+            <br>
+                @foreach ($bluecards as $bluecard)
+                    <a href="/bluecards/{{ $bluecard->id }}" class="btn btn-primary">{{ $bluecard->plate_number }}</a>
+                @endforeach
 
+            @else
+            <h2>You haven't upload any Bluecard yet</h2>
+        @endif
     </div>
 @endsection

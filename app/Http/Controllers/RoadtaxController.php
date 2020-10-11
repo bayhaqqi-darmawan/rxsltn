@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bluecard;
+use App\Insurance;
+use App\Roadtax;
+use App\User;
 
 class RoadtaxController extends Controller
 {
@@ -24,9 +27,7 @@ class RoadtaxController extends Controller
      */
     public function index()
     {
-        $bluecards = Bluecard::all();
-
-        return view('roadtax.index')->with('bluecards', $bluecards);
+        //
     }
 
     /**
@@ -47,7 +48,18 @@ class RoadtaxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'selectedBluecard' => 'required|integer|unique:roadtax',
+            'selectedInsurance' => 'required|integer|unique:roadtax'
+        ]);
+
+        $roadtax = new Roadtax;
+        $roadtax->user_ic = auth()->user()->ic;
+        $roadtax->selectedBluecard = $request->input('selectedBluecard');
+        $roadtax->selectedInsurance = $request->input('selectedInsurance');
+        $roadtax->save();
+
+        return redirect('dashboard')->with('success', 'Record Sent!');
     }
 
     /**
@@ -56,9 +68,13 @@ class RoadtaxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($ic)
     {
-        //
+        $user = User::find($ic);
+        $bluecards = Bluecard::find($ic);
+        $insurances = Insurance::find($ic);
+
+        return view('roadtax.show', compact('bluecards', 'user', 'insurances'));
     }
 
     /**

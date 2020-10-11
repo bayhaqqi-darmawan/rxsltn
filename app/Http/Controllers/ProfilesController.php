@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Bluecard;
 use App\User;
 Use App\Insurance;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends Controller
 {
@@ -56,18 +57,31 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($ic_number)
+    public function show($ic)
     {
-        $bluecards = Bluecard::find($ic_number);
-        $insurances = Insurance::find($ic_number);
-        $user = User::find($ic_number);
+        $user = User::find($ic);
+        $bluecards = Bluecard::find($ic);
+        // $user_ic = auth()->user()->ic;
+        // $bluecards = Bluecard::find($user_ic);
+        $insurances = Insurance::find($ic);
 
-        // Check for correct user
-        if(auth()->user()->ic_number !== $user->ic_number){
-            return redirect()->back()->with('error', 'Unauthorized Page!');
-        }
+        // if ($bluecards) {
+        //     $bid = $bluecards->id;
+        //     $bluecards_id = Bluecard::find($bid);
+        //     dd($bluecards_id);
 
-        return view('profiles.show')->with('bluecards', $bluecards)->with('insurances', $insurances);
+        //     return view('profiles.show', compact('user', 'bluecards', 'bluecards_id', 'insurances'));
+        // };
+
+        // // Check for correct user
+        // if(auth()->user()->ic !== $user->ic){
+        //     return redirect()->back()->with('error', 'Unauthorized Page!');
+        // }
+
+        return view('profiles.show', compact('user', 'bluecards', 'insurances'));
+
+        // return view('profiles.show')->with('$user', $user);
+
     }
 
     /**
@@ -76,12 +90,12 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($ic_number)
+    public function edit($ic)
     {
-        $user = User::find($ic_number);
+        $user = User::find($ic);
 
         // Check for correct user
-        if(auth()->user()->ic_number !== $user->ic_number){
+        if(auth()->user()->ic !== $user->ic){
             return redirect()->back()->with('error', 'Unauthorized Page!');
         }
 
@@ -95,7 +109,7 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $ic_number)
+    public function update(Request $request, $ic)
     {
         $this-> validate($request, [
             'username' => 'required',
@@ -105,15 +119,14 @@ class ProfilesController extends Controller
         ]);
 
         //Find the user
-
-        $user = User::find($ic_number);
+        $user = User::find($ic);
         $user->username = $request->input('username');
         $user->fullname = $request->input('fullname');
         $user->address = $request->input('address');
         $user->phone_number = $request->input('phone_number');
         $user-> save();
 
-        return redirect('/dashboard')->with('success', 'Profile Updated!');
+        return redirect('dashboard')->with('success', 'Profile Updated!');
     }
 
     /**
@@ -122,12 +135,12 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($ic_number)
+    public function destroy($ic)
     {
-        $user = User::find($ic_number);
+        $user = User::find($ic);
 
         // Check for correct user
-        if(auth()->user()->ic_number !== $user->ic_number){
+        if(auth()->user()->ic !== $user->ic){
             return redirect()->back()->with('error', 'Unauthorized Page!');
         }
 

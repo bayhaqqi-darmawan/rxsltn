@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\User;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,5 +11,10 @@ class Insurance extends Model
      protected $table = 'insurances';
 
      // Primary Key
-     public $primaryKey = 'user_ic';
+     public $primaryKey = 'id';
+    //  public $incrementing = false;
+
+     public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

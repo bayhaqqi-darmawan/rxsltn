@@ -16,11 +16,11 @@
                 </tr>
                 <tr>
                     <th scope="row">Full Name</th>
-                    <td>{{ Auth::user()->fullname }}</td>
+                    <td>{{ ucwords(Auth::user()->fullname) }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Ic - Number</th>
-                    <td>{{ Auth::user()->ic_number }}</td>
+                    <td>{{ Auth::user()->ic }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Phone Number</th>
@@ -32,44 +32,48 @@
                 </tr>
                 <tr>
                     <th scope="row">Email</th>
-                    <td>{{ Auth::user()->email }}</td>
+                    <td>{{ ucfirst(Auth::user()->email) }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <a class="btn btn-primary" href="/profiles/{{Auth::user()->ic_number}}/edit" role="button">Edit Profile</a>
+        <a class="btn btn-primary" href="{{ route('profiles.edit', Auth::user()->ic) }}" role="button">Edit Profile</a>
+        <br>
+
+        @if (count($user->bluecards) > 0)
+            @if (auth()->user()->ic == $user->ic)
+            <br>
+                @foreach ($user->bluecards as $bluecard)
+                    <a href="/bluecards/{{ $bluecard->id }}" class="btn btn-secondary">{{ $bluecard->plate_number }}</a>
+                @endforeach
+            @endif
+
+            @else
+            <br>
+            <h4>You haven't upload any Bluecard yet</h4>
+        @endif
+
         <br><br>
-
-            @if($bluecards)
-                @if ($bluecards->user_ic == Auth::user()->ic_number)
-                    <ul class="list-group">
-                        <li class="list-group-item">Your Digital Bluecard</li>
-                        <li class="list-group-item"><img style="width:45%" src="{{ asset('/storage/upload_imgs/'.$bluecards->upload_img) }}"></li>
-                        <li class="list-group-item">Plate License: {{ $bluecards->plate }}{{ $bluecards->number }}</li>
-                        <li class="list-group-item">Road-tax Expiry Date: {{ $bluecards->exp }}</li>
-                    </ul>
-                @endif
-
-                @else
-                    <p>No Bluecards found</p>
-            @endif
-        <br>
-            @if($insurances)
-                @if ($insurances->user_ic == Auth::user()->ic_number)
-                    <ul class="list-group">
-                        <li class="list-group-item">Your Insurance</li>
-                        <li class="list-group-item"><img style="width:45%" src="{{ asset('/storage/insurance_imgs/'.$insurances->insurance_img) }}"></li>
-                        <li class="list-group-item">Insurance Expiry Date: {{ $insurances->ins_exp }}</li>
-                    </ul>
-                @endif
-
-                @else
-                    <p>No Insurance found</p>
-            @endif
-        <br>
         <a class="btn btn-primary" href="/bluecards/create" role="button">Upload Bluecard</a>
+
+        <hr>
+
+            @if (count($user->insurances) > 0)
+                @if (auth()->user()->ic == $user->ic)
+                <br>
+                    @foreach ($user->insurances as $insurance)
+                        <a href="/insurances/{{ $insurance->id }}" class="btn btn-secondary">{{ $insurance->plate_number }}</a>
+                    @endforeach
+                @endif
+
+                @else
+                    <br>
+                    <h4>No Insurance found</h4>
+            @endif
+
+        <br><br>
         <a class="btn btn-primary" href="/insurances/create" role="button">Upload Insurance</a>
-        <br>
+        <hr>
 
         <div class="visible-print text-center">
             {!! QrCode::size(100)->generate(Request::url()); !!}

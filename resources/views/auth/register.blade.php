@@ -40,12 +40,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="ic_number" class="col-md-4 col-form-label text-md-right">{{ __('IC Number') }}</label>
+                            <label for="ic" class="col-md-4 col-form-label text-md-right">{{ __('IC Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="ic_number" type="text" class="form-control @error('ic_number') is-invalid @enderror" name="ic_number" value="{{ old('ic_number') }}" required autocomplete="ic_number" placeholder="01012345" autofocus>
+                                <input id="ic" type="text" class="form-control @error('ic') is-invalid @enderror" name="ic" value="{{ old('ic') }}" required autocomplete="ic" placeholder="01012345" autofocus>
 
-                                @error('ic_number')
+                                @error('ic')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -56,8 +56,10 @@
                         <div class="form-group row">
                             <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" placeholder="6738885555" autofocus>
+                            <label class="col-md-2 col-form-label text-md-center" for="">+673</label>
+
+                            <div class="col-md-4">
+                                <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" placeholder="8885555" autofocus>
 
                                 @error('phone_number')
                                     <span class="invalid-feedback" role="alert">

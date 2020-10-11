@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBluecardsTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateBluecardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bluecards', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->string('payment_id');
             $table->string('user_ic');
-            $table->string('plate');
-            $table->integer('number');
-            $table->string('plate_number')->unique();
-            $table->date('exp');
-            $table->string('upload_img');
+            $table->string('payer_email');
+            $table->float('amount', 10, 2);
+            $table->string('currency');
+            $table->string('payment_status');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateBluecardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bluecards');
+        Schema::dropIfExists('payments');
     }
 }

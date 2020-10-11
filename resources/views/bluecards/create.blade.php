@@ -14,7 +14,6 @@
                     {{Form::label('number', 'Number')}}
                     {{Form::text('number', '', ['class'=>'form-control', 'placeholder'=>'1234'])}}
                 </div>
-
             </div>
 
             <div class="form-group">
@@ -22,9 +21,18 @@
                 {{Form::date('exp', '', ['class'=>'form-control', 'placeholder'=>'Expiry Date'])}}
             </div>
 
+            <div class="row">
+                <div class="col"><p>Example for Bluecard</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><img src="{{ asset('bluecard-example.jpg') }}" alt="Example for Bluecard" style="max-width: 60%"></div>
+                <div class="col"><span>Please take note! <br> Image must be clear and you can either scan or take picture of it </span></div>
+            </div>
+            <br>
         <div class="form-group">
             {{Form::file('upload_img')}}
         </div>
+
     {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
     {!! Form::close() !!}
     </div>
