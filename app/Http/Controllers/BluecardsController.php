@@ -7,6 +7,7 @@ use App\Bluecard;
 use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 
 class BluecardsController extends Controller
 {
@@ -100,10 +101,10 @@ class BluecardsController extends Controller
      */
     public function edit($id)
     {
-        $bluecards = Bluecard::find($id);
+        $bluecard = Bluecard::find($id);
         $user = User::find($id);
 
-        return view('bluecards.edit', compact('bluecards', 'user'));
+        return view('bluecards.edit', compact('bluecard', 'user'));
     }
 
     /**
@@ -131,8 +132,10 @@ class BluecardsController extends Controller
         $bluecards->exp = $request->input('exp');
         $bluecards-> save();
 
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
 
-        return view('/dashboard')->with('success', 'Bluecard Updated!');
+        return view('/dashboard', compact('user'))->with('success', 'Bluecard Updated!');
     }
 
     /**
@@ -143,9 +146,12 @@ class BluecardsController extends Controller
      */
     public function destroy($id)
     {
-        $bluecard = Bluecard::where('id', $id);
+        $bluecard = Bluecard::find($id);
         $bluecard->delete();
 
-        return redirect('/dashboard')->with('success', 'Digital Bluecard Removed');
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
+
+        return view('/dashboard', compact('user'))->with('success', 'Digital Bluecard Removed');
     }
 }

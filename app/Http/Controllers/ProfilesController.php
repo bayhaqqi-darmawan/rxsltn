@@ -61,26 +61,9 @@ class ProfilesController extends Controller
     {
         $user = User::find($ic);
         $bluecards = Bluecard::find($ic);
-        // $user_ic = auth()->user()->ic;
-        // $bluecards = Bluecard::find($user_ic);
         $insurances = Insurance::find($ic);
 
-        // if ($bluecards) {
-        //     $bid = $bluecards->id;
-        //     $bluecards_id = Bluecard::find($bid);
-        //     dd($bluecards_id);
-
-        //     return view('profiles.show', compact('user', 'bluecards', 'bluecards_id', 'insurances'));
-        // };
-
-        // // Check for correct user
-        // if(auth()->user()->ic !== $user->ic){
-        //     return redirect()->back()->with('error', 'Unauthorized Page!');
-        // }
-
         return view('profiles.show', compact('user', 'bluecards', 'insurances'));
-
-        // return view('profiles.show')->with('$user', $user);
 
     }
 

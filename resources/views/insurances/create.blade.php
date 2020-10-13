@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
         <h1>Insert Insurance</h1>
 
         {!! Form::open(['action' => 'InsurancesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}

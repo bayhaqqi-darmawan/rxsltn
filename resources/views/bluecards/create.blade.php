@@ -1,21 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
         <h1>Insert Bluecard</h1>
 
         {!! Form::open(['action' => 'BluecardsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
             <div class="form-group row">
                 <div class="col-2">
                     {{Form::label('plate', 'Plate')}}
-                    {{Form::text('plate', '', ['class'=>'form-control', 'placeholder'=>'BAA'])}}
+                    {{Form::text('plate', $plate = Request::get('plate'), ['class'=>'form-control', 'placeholder'=>'BAA'])}}
                 </div>
                 <div class="col-3">
                     {{Form::label('number', 'Number')}}
-                    {{Form::text('number', '', ['class'=>'form-control', 'placeholder'=>'1234'])}}
+                    {{Form::text('number', $number = Request::get('number'), ['class'=>'form-control', 'placeholder'=>'1234'])}}
                 </div>
             </div>
-
             <div class="form-group">
                 {{Form::label('exp', 'Expiry Date')}}
                 {{Form::date('exp', '', ['class'=>'form-control', 'placeholder'=>'Expiry Date'])}}

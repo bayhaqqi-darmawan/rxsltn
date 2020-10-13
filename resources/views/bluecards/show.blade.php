@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
     <a href="/profiles/{{auth()->user()->ic}}" class="btn btn-default">Go Back</a>
 
         <ul class="list-group">

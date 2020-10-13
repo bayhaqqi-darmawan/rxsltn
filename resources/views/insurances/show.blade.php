@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
         <ul class="list-group">
             <li class="list-group-item">Your Insurances</li>
             <hr>

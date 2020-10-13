@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
         <div class="card text-center">
             <h5 class="card-header">Select Digital Bluecard</h5>
             <div class="card-body">
                 <p class="card-text">
                     {!! Form::open(['action' => 'RoadtaxController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group row">
-                        <label class="col-md-6" for="selectedBluecard">Your Bluecard</label>
+                        <label class="col-md-6" for="selectedBluecard">Your Digital Bluecard</label>
                         <select class="form-control col-md-3" name="selectedBluecard">
                             @if ($user->bluecards)
                                 @foreach ($user->bluecards as $bluecard)

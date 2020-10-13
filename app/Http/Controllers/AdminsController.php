@@ -65,18 +65,15 @@ class AdminsController extends Controller
         $user = User::find($ic); //this is the ic of the selected user
         $user_ic = $user->ic;
         $roadtaxes = Roadtax::where('user_ic', $user_ic)->get()->first();
-        // $roadtaxes = $user->roadtax;
+
         if ($roadtaxes) {
             $r_bid = $roadtaxes->selectedBluecard;
             $r_iid = $roadtaxes->selectedInsurance;
-            // dd($roadtaxes);
             $bluecards = Bluecard::find($r_bid);
             $insurances = Insurance::find($r_iid);
 
             return view('admins.show', compact('user', 'bluecards', 'insurances', 'roadtaxes'));
         }
-
-
 
         // Check for correct user
         if(auth()->user()->role !== "admin"){
@@ -106,40 +103,20 @@ class AdminsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $this-> validate($request, [
+            'approval' => ['required'],
+            'reason' => ['required_if:approval,==,Rejected'],
+            'price' => ['required_if:approval,==,Approved']
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function approve($id)
-    {
         $roadtax = Roadtax::find($id);
-        dd($roadtax);
-        $roadtax->approval = 'Approved';
+        $roadtax->approval = $request->input('approval');
+        $roadtax->reason = $request->input('reason');
+        $roadtax->price = $request->input('price');
         $roadtax-> save();
 
-        return view('admins.index')->with('success', 'You have approved the record!');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function reject($id)
-    {
-        $roadtax = Roadtax::find($id);
-        $roadtax->approval = 'Rejected';
-        $roadtax-> save();
-
-        return view('admins.index')->with('success', 'You have reject the record!');
+        $users = User::all();
+        return view('admins.index')->with('users', $users)->with('success', 'Approval sent!');
     }
 
     /**

@@ -19,11 +19,17 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+    <style>
+        .masthead {
+            background-image: url('https://images.unsplash.com/photo-1558898268-92ae44e7670e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         @include('inc.navbar')
-        <main class="py-4">
+        <main>
             @include('inc.messages')
             @yield('content')
         </main>

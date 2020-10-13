@@ -19,6 +19,8 @@ class CreateRoadtaxTable extends Migration
             $table->integer('selectedBluecard')->unique();
             $table->integer('selectedInsurance')->unique();
             $table->enum('approval', ['Approved','Rejected', 'Pending'])->default('Pending');
+            $table->string('reason')->nullable();
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

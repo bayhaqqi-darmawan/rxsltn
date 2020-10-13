@@ -40,6 +40,8 @@ class RoadtaxController extends Controller
         //
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,6 +50,8 @@ class RoadtaxController extends Controller
      */
     public function store(Request $request)
     {
+        $fillable = ['reason', 'price'];
+
         $this->validate($request, [
             'selectedBluecard' => 'required|integer|unique:roadtax',
             'selectedInsurance' => 'required|integer|unique:roadtax'
@@ -61,6 +65,8 @@ class RoadtaxController extends Controller
 
         return redirect('dashboard')->with('success', 'Record Sent!');
     }
+
+    protected $fillable = ['reason', 'price'];
 
     /**
      * Display the specified resource.

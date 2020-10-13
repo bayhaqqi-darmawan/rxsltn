@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
         <table class="table table-bordered">
             <tr>
                 <th scope="col" class="text-center" colspan="4">User List</th>
@@ -34,7 +34,7 @@
 
 
                                     @else
-                                        <button class="btn btn-default" disabled>Not yet sent</button>
+                                        <h5>Not yet submitted</h5>
                                 @endif
                             </td>
                         @endif

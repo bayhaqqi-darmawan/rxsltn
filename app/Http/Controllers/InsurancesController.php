@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Insurance;
+use App\User;
 use Illuminate\Support\Str;
 
 class InsurancesController extends Controller
@@ -94,7 +95,10 @@ class InsurancesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $insurance = Insurance::find($id);
+        $user = User::find($id);
+
+        return view('insurances.edit', compact('insurance', 'user'));
     }
 
     /**
@@ -106,7 +110,26 @@ class InsurancesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this-> validate($request, [
+            'plate' => ['required', 'max:3'],
+            'number' => ['required', 'max:4'],
+            'plate_number' => ['max:7', 'unique'],
+            'ins_exp' => 'required',
+        ]);
+
+        //Find the user
+
+        $insurance = Insurance::find($id);
+        $insurance->plate = Str::upper($request->input('plate'));
+        $insurance->number = $request->input('number');
+        $insurance->plate_number = Str::upper($request->input('plate')).$request->input('number');
+        $insurance->ins_exp = $request->input('ins_exp');
+        $insurance-> save();
+
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
+
+        return view('/dashboard', compact('user'))->with('success', 'Bluecard Updated!');
     }
 
     /**
@@ -117,6 +140,12 @@ class InsurancesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $insurance = Insurance::find($id);
+        $insurance->delete();
+
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
+
+        return view('/dashboard', compact('user'))->with('success', 'Insurance Removed');
     }
 }

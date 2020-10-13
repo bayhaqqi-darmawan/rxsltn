@@ -27,21 +27,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected function authenticated(Request $request, $user)
-    {
-        // to admin dashboard
-        if($user->isAdmin()) {
-            return redirect(route('admins.index'));
-        }
-
-        // to user dashboard
-        else if($user->isUser()) {
-            return redirect(route('dashboard'));
-        }
-
-        abort(404);
-    }
-    // protected $redirectTo = '/dashboard';
+    
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.

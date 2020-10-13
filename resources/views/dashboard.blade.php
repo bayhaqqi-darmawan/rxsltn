@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <table class="table table-bordered">
         <tr>
             <th scope="col" colspan="3" class="text-center">User Dashboard</th>
@@ -39,21 +39,6 @@
             <td>3</td>
             <td>Approval From Admin</td>
             <td class="text-center">
-                {{-- @if (count($user->roadtaxes) > 0 && $approve !== 1)
-                    <p>Pending</p>
-
-                    @if (count($user->roadtaxes) > 0 && $approve == 1)
-                        <p>Approved!</p>
-
-                        @if (count($user->roadtaxes) > 0 && $approve == 3)
-                            <p>Rejected!</p>
-                        @endif
-                    @endif
-
-                    @else
-
-                    <p>You haven't send your records yet!</p>
-                @endif --}}
 
                 @if (count($user->roadtaxes) > 0)
                     @foreach ($user->roadtaxes as $roadtax)
@@ -61,14 +46,24 @@
                     @endforeach
 
                     <h5>{{ $roadtax->approval }}</h5>
+
+                    @if ($roadtax->approval == 'Rejected')
+                        <div class="alert alert-danger" role="alert">
+                            <h4 class="alert-heading"></h4>
+                            <p>{{ $roadtax->reason }}</p>
+                        </div>
+                    @endif
+
+                    @else
+                    <h5>You haven't submitted anything yet</h5>
                 @endif
             </td>
         </tr>
         <tr>
             <td>4</td>
             <td>Payment</td>
-            <td>
-
+            <td class="text-center">
+                <button class="btn btn-primary">${{ $roadtax->price }}</button>
             </td>
         </tr>
     </table>

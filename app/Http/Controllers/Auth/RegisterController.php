@@ -60,10 +60,6 @@ class RegisterController extends Controller
         ]);
     }
 
-
-
-
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -81,14 +77,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    protected function update()
-    {
-        $email = 'rotexsolution.pb@gmail.com';
-
-        $admin = User::find($email);
-        $admin->role = 'admin';
-        $admin-> save();
     }
 }

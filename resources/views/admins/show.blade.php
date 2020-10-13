@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -70,24 +70,35 @@
                 </div>
             </div>
 
+            <div class="card">
+                <div class="card-header">
+                  <h5>Action</h5>
+                </div>
+
+                <br>
+                <div class="card-body">
+                    <h5 class="card-title">Your action towards the user's submission</h5>
+
+                    {!! Form::open(['action' => ['AdminsController@update', $roadtaxes->id],'method' => 'PUT']) !!}
+                        <div class="form-group">
+                            {{Form::select('approval', array('Approved' => 'Approve', 'Rejected' => 'Reject'))}}
+                        </div>
+
+                        <div class="form-group">
+                            {{Form::label('price', 'Price')}}
+                            {{Form::text('price', '')}}
+                        </div>
+
+                        <div class="form-group">
+                            {{Form::label('reason', 'Reason for rejecting')}}
+                            {{Form::textarea('reason', '', ['class'=>'form-control', 'placeholder'=>'Your Reason'])}}
+                        </div>
+                    {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+                    {!! Form::close() !!}
+                </div>
+            </div>
+
             <br>
-
-                {{-- @foreach ($user->roadtaxes as $roadtax)
-                    <div class="row">
-                        <div class="col">
-                            {!! Form::open(['action' => ['AdminsController@approve', $roadtax->id],'method' => 'POST']) !!}
-                                {{Form::submit('Approve', ['class'=>'btn btn-success'])}}
-                            {!! Form::close() !!}
-                        </div>
-
-                        <div class="col">
-                            {!! Form::open(['action' => ['AdminsController@reject', $roadtax->id],'method' => 'POST']) !!}
-                                {{Form::submit('Reject', ['class'=>'btn btn-danger'])}}
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-                @endforeach --}}
-
             @else
             <h3>{{ $user->username }} has not send their records yet</h3>
         @endif
