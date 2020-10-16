@@ -26,6 +26,10 @@
                                     <li class="nav-item">
                                         <a href="{{ route('roadtax.show', Auth::user()->ic) }}" class="nav-link">Renew Roadtax</a>
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a href="/delivery" class="nav-link">Delivery Schedule</a>
+                                    </li>
                             @endif
                     @endguest
                 </ul>

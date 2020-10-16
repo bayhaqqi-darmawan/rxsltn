@@ -23,14 +23,12 @@ Route::resource('roadtax', 'RoadtaxController')->middleware('verified');
 Route::resource('bluecards', 'BluecardsController')->middleware('verified');
 Route::resource('insurances', 'InsurancesController')->middleware('verified');
 Route::resource('admins', 'AdminsController')->middleware('verified');
-Route::resource('payment', 'PaymentController')->middleware('verified');
 
-// admin protected routes
-// Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admins'], function () {
-//     Route::resource('index', 'AdminsController')->middleware('verified');
-// });
+Route::get('payment', 'PaymentController@index');
+Route::post('charge', 'PaymentController@charge');
+Route::get('paymentsuccess', 'PaymentController@payment_success');
+Route::get('paymenterror', 'PaymentController@payment_error');
 
-// user protected routes
-// Route::group(['middleware' => ['auth', 'user'], 'prefix' => 'user'], function () {
-//     Route::get('dashboard', 'DashboardController@index')->name('dashboard')->middleware('verified');
-// });
+Route::get('/delivery', function(){
+    return view('delivery');
+});

@@ -34,6 +34,7 @@
             @yield('content')
         </main>
     </div>
+    @include('inc.tawk')
 </body>
 </html>
 

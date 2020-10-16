@@ -50,7 +50,7 @@
                     @if ($roadtax->approval == 'Rejected')
                         <div class="alert alert-danger" role="alert">
                             <h4 class="alert-heading"></h4>
-                            <p>{{ $roadtax->reason }}</p>
+                            <a href="/reason">{{ $roadtax->reason }}</a>
                         </div>
                     @endif
 
@@ -63,9 +63,19 @@
             <td>4</td>
             <td>Payment</td>
             <td class="text-center">
-                <button class="btn btn-primary">${{ $roadtax->price }}</button>
+                @if (count($user->roadtaxes) > 0)
+                    @foreach ($user->roadtaxes as $roadtax)
+                        <a href="/payment" class="btn btn-primary">${{ $roadtax->price }}</a>
+                    @endforeach
+
+                    @else
+                    <h5>Not Available</h5>
+                @endif
+
             </td>
         </tr>
     </table>
 </div>
+
+
 @endsection

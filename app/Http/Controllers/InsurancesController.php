@@ -52,7 +52,7 @@ class InsurancesController extends Controller
             'plate' => ['required', 'max:3'],
             'number' => ['required', 'max:4'],
             'plate_number' => ['max:7', 'unique:users'],
-            'insurance_img' => 'image|nullable|max:1999'
+            'insurance_img' => 'image|required|max:1999'
         ]);
 
         // Handle File Upload
