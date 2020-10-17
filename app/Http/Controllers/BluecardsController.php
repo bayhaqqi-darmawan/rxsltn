@@ -53,12 +53,11 @@ class BluecardsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $this-> validate($request, [
             'plate' => ['required', 'max:3'],
-            'number' => ['required', 'max:4', 'unique:bluecards'],
-            'plate_number' => ['max:7', 'unique:bluecards,plate_number'],
+            'number' => ['required', 'max:4'],
+            'plate_number' => ['max:7', 'unique:bluecards'],
             'exp' => 'required',
-            'upload_img' => 'image|required|max:1999'
         ]);
 
         // Handle File Upload
@@ -125,12 +124,12 @@ class BluecardsController extends Controller
 
         //Find the user
 
-        $bluecards = Bluecard::find($id);
-        $bluecards->plate = Str::upper($request->input('plate'));
-        $bluecards->number = $request->input('number');
-        $bluecards->plate_number = Str::upper($request->input('plate')).$request->input('number');
-        $bluecards->exp = $request->input('exp');
-        $bluecards-> save();
+        $bluecard = Bluecard::find($id);
+        $bluecard->plate = Str::upper($request->input('plate'));
+        $bluecard->number = $request->input('number');
+        $bluecard->plate_number = Str::upper($request->input('plate')).$request->input('number');
+        $bluecard->exp = $request->input('exp');
+        $bluecard-> save();
 
         $ic = auth()->user()->ic;
         $user = User::find($ic);

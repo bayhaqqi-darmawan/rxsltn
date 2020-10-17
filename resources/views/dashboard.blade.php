@@ -40,7 +40,7 @@
             <td>Approval From Admin</td>
             <td class="text-center">
 
-                @if (count($user->roadtaxes) > 0)
+                @if (count($user->roadtaxes) > 0 && count($user->bluecards)>0 && count($user->insurances)>0)
                     @foreach ($user->roadtaxes as $roadtax)
 
                     @endforeach
@@ -63,7 +63,7 @@
             <td>4</td>
             <td>Payment</td>
             <td class="text-center">
-                @if (count($user->roadtaxes) > 0)
+                @if (count($user->roadtaxes) > 0 && count($user->bluecards)>0 && count($user->insurances)>0)
                     @foreach ($user->roadtaxes as $roadtax)
                         <a href="/payment" class="btn btn-primary">${{ $roadtax->price }}</a>
                     @endforeach

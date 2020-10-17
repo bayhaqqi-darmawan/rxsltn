@@ -15,6 +15,12 @@
                     {{Form::text('number', $number = Request::get('number'), ['class'=>'form-control', 'placeholder'=>'1234'])}}
                 </div>
             </div>
+            <div class="form-group row" style="display: none">
+                <div class="col">
+                    {{ Form::label('plate_number', 'Plate Number')}}
+                    {{Form::text('plate_number', $plate_number = Str::upper(Request::get('plate')).Request::get('number'), ['class'=>'form-control'])}}
+                </div>
+            </div>
             <div class="form-group">
                 {{Form::label('exp', 'Expiry Date')}}
                 {{Form::date('exp', '', ['class'=>'form-control', 'placeholder'=>'Expiry Date'])}}

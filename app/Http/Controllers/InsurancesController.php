@@ -47,8 +47,10 @@ class InsurancesController extends Controller
      */
     public function store(Request $request)
     {
+        $nextyear = date('2021-01-01');
+        
         $this->validate($request, [
-            'ins_exp' => 'required',
+            'ins_exp' => 'required|after_or_equal:'.$nextyear,
             'plate' => ['required', 'max:3'],
             'number' => ['required', 'max:4'],
             'plate_number' => ['max:7', 'unique:users'],
@@ -114,7 +116,7 @@ class InsurancesController extends Controller
             'plate' => ['required', 'max:3'],
             'number' => ['required', 'max:4'],
             'plate_number' => ['max:7', 'unique'],
-            'ins_exp' => 'required',
+            'ins_exp' => 'required|after_or_equal:'.date('2020-01-01'),
         ]);
 
         //Find the user
