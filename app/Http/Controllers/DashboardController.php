@@ -26,12 +26,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $approve = array([
-            0 => 'Not yet sent',
-            1 => 'Approve!',
-            2 => 'Pending',
-            3 => 'Rejected!'
-        ]);
         $ic = auth()->user()->ic;
         $user = User::find($ic);
         $bluecards = Bluecard::find($ic);
@@ -42,7 +36,6 @@ class DashboardController extends Controller
             'user' => $user,
             'bluecards' => $bluecards,
             'insurances' => $insurances,
-            'approve' => $approve,
             'roadtax' => $roadtax
         ]);
     }

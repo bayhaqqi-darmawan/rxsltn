@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container py-4">
+        <a href="/profiles/{{auth()->user()->ic}}" class="btn btn-default">Go Back</a>
         <h1>Edit your Digital Bluecard</h1>
 
             <hr>
@@ -12,13 +13,8 @@
                 </div>
 
                 <div class="form-group">
-                    {{Form::label('plate', 'Plate')}}
-                    {{Form::text('plate', $bluecard->plate,['class'=>'form-control', 'placeholder'=>'Plate'])}}
-                </div>
-
-                <div class="form-group">
-                    {{Form::label('number', 'Number')}}
-                    {{Form::text('number', $bluecard->number, ['class'=>'form-control', 'placeholder'=>'Number'])}}
+                    {{Form::label('plate number', 'Plate Number')}}
+                    {{Form::text('plate_number', $bluecard->plate_number,['class'=>'form-control', 'placeholder'=>'Plate'])}}
                 </div>
 
                 <div class="form-group">

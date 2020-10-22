@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use App\Payment;
+use App\Roadtax;
+use App\User;
 
 class PaymentController extends Controller
 {
@@ -21,6 +23,15 @@ class PaymentController extends Controller
 
     public function index()
     {
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
+        // dd($user);
+        $roadtax = Roadtax::find($user)->first();
+        // dd($roadtax);
+
+        if($roadtax){
+            $price = $roadtax->price;
+        }
         return view('payments.index');
     }
 
@@ -90,7 +101,7 @@ class PaymentController extends Controller
 
     public function payment_error()
     {
-        return 'User is canceled the payment.';
+        return 'User has canceled the payment.';
     }
 
 }

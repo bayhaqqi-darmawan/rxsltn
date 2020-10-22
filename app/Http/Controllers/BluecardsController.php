@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Bluecard;
 use App\User;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class BluecardsController extends Controller
 {
@@ -54,10 +53,8 @@ class BluecardsController extends Controller
     public function store(Request $request)
     {
         $this-> validate($request, [
-            'plate' => ['required', 'max:3'],
-            'number' => ['required', 'max:4'],
-            'plate_number' => ['max:7', 'unique:bluecards'],
-            'exp' => 'required',
+            'plate_number' => ['required', 'max:7', 'unique:bluecards', 'regex:/[b,B,k,K]{1}[^d,i,o,x,z]{1}[^d,i,o,x,z]{0,1}[1-9]{1}[0-9]{0,3}/'],
+            'exp' => 'required|date|before_or_equal:01-01-2021',
         ]);
 
         // Handle File Upload
@@ -71,9 +68,7 @@ class BluecardsController extends Controller
          $bluecards->user_ic = auth()->user()->ic;
          $bluecards->upload_img = $filename;
          $bluecards->exp = $request->input('exp');
-         $bluecards->plate = Str::upper($request->input('plate'));
-         $bluecards->number = $request->input('number');
-         $bluecards->plate_number = Str::upper($request->input('plate')).$request->input('number');
+         $bluecards->plate_number = Str::upper($request->input('plate_number'));
          $bluecards->save();
 
          return redirect('/dashboard')->with('success', 'File Uploaded');
@@ -116,25 +111,21 @@ class BluecardsController extends Controller
     public function update(Request $request, $id)
     {
         $this-> validate($request, [
-            'plate' => ['required', 'max:3'],
-            'number' => ['required', 'max:4'],
-            'plate_number' => ['max:7', 'unique'],
+            'plate_number' => ['required', 'max:7', 'unique:bluecards', 'regex:/[b,B,k,K][^d,i,o,x,z][^d,i,o,x,z]?[0-9]{1,4}/'],
             'exp' => 'required',
         ]);
 
         //Find the user
 
         $bluecard = Bluecard::find($id);
-        $bluecard->plate = Str::upper($request->input('plate'));
-        $bluecard->number = $request->input('number');
-        $bluecard->plate_number = Str::upper($request->input('plate')).$request->input('number');
+        $bluecard->plate_number = Str::upper($request->input('plate_number'));
         $bluecard->exp = $request->input('exp');
         $bluecard-> save();
 
         $ic = auth()->user()->ic;
         $user = User::find($ic);
 
-        return view('/dashboard', compact('user'))->with('success', 'Bluecard Updated!');
+        return redirect('/dashboard')->with('success', 'Digital Bluecard Updated!');
     }
 
     /**
@@ -151,6 +142,6 @@ class BluecardsController extends Controller
         $ic = auth()->user()->ic;
         $user = User::find($ic);
 
-        return view('/dashboard', compact('user'))->with('success', 'Digital Bluecard Removed');
+        return redirect('/dashboard')->with('success', 'Digital Bluecard Removed');
     }
 }

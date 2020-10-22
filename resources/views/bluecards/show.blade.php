@@ -13,12 +13,14 @@
             <br>
             <div class="row">
                 <div class="col"><a class="btn btn-primary pull-left" href="{{ route('bluecards.edit', $bluecard->id) }}" role="button">Edit Bluecard</a></div>
-                <div class="col"><span class="text-right">
-                    {!!Form::open(['action' => ['BluecardsController@destroy', $bluecard->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
-                    {{Form::hidden('_method', 'DELETE')}}
-                    {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-                    {!!Form::close()!!}
-                </span></div>
+                <div class="col">
+                    <span class="text-right">
+                        {!!Form::open(['action' => ['BluecardsController@destroy', $bluecard->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+                        {{Form::hidden('_method', 'DELETE')}}
+                        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                        {!!Form::close()!!}
+                    </span>
+                </div>
             </div>
         </ul>
     </div>

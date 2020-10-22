@@ -48,12 +48,10 @@ class InsurancesController extends Controller
     public function store(Request $request)
     {
         $nextyear = date('2021-01-01');
-        
+
         $this->validate($request, [
             'ins_exp' => 'required|after_or_equal:'.$nextyear,
-            'plate' => ['required', 'max:3'],
-            'number' => ['required', 'max:4'],
-            'plate_number' => ['max:7', 'unique:users'],
+            'plate_number' => ['required', 'max:7', 'unique:insurances', 'regex:/[b,B,k,K][^d,i,o,x,z][^d,i,o,x,z]?[0-9]{1,4}/'],
             'insurance_img' => 'image|required|max:1999'
         ]);
 
@@ -68,12 +66,10 @@ class InsurancesController extends Controller
          $insurances->user_ic = auth()->user()->ic;
          $insurances->insurance_img = $filename;
          $insurances->ins_exp = $request->input('ins_exp');
-         $insurances->plate = Str::upper($request->input('plate'));
-         $insurances->number = $request->input('number');
-         $insurances->plate_number = Str::upper($request->input('plate')).$request->input('number');
+         $insurances->plate_number = Str::upper($request->input('plate_number'));
          $insurances->save();
 
-         return redirect('/dashboard')->with('success', 'File Uploaded');
+         return redirect('/dashboard')->with('success', 'File Uploaded!');
     }
 
     /**
@@ -113,25 +109,21 @@ class InsurancesController extends Controller
     public function update(Request $request, $id)
     {
         $this-> validate($request, [
-            'plate' => ['required', 'max:3'],
-            'number' => ['required', 'max:4'],
-            'plate_number' => ['max:7', 'unique'],
-            'ins_exp' => 'required|after_or_equal:'.date('2020-01-01'),
+            'plate_number' => ['required', 'max:7', 'unique:insurances', 'regex:/[b,B,k,K][^d,i,o,x,z][^d,i,o,x,z]?[0-9]{1,4}/'],
+            'ins_exp' => 'required|after_or_equal:'.date('2021-01-01'),
         ]);
 
         //Find the user
 
         $insurance = Insurance::find($id);
-        $insurance->plate = Str::upper($request->input('plate'));
-        $insurance->number = $request->input('number');
-        $insurance->plate_number = Str::upper($request->input('plate')).$request->input('number');
+        $insurance->plate_number = Str::upper($request->input('plate_number'));
         $insurance->ins_exp = $request->input('ins_exp');
         $insurance-> save();
 
         $ic = auth()->user()->ic;
         $user = User::find($ic);
 
-        return view('/dashboard', compact('user'))->with('success', 'Bluecard Updated!');
+        return redirect('/dashboard')->with('success', 'Insurance Updated!');
     }
 
     /**
@@ -148,6 +140,6 @@ class InsurancesController extends Controller
         $ic = auth()->user()->ic;
         $user = User::find($ic);
 
-        return view('/dashboard', compact('user'))->with('success', 'Insurance Removed');
+        return redirect('/dashboard')->with('success', 'Insurance Removed!');
     }
 }

@@ -21,6 +21,7 @@ class CreateRoadtaxTable extends Migration
             $table->enum('approval', ['Approved','Rejected', 'Pending'])->default('Pending');
             $table->string('reason')->nullable();
             $table->integer('price')->nullable();
+            $table->enum('paid', ['yes', 'no'])->default('no');
             $table->timestamps();
         });
     }

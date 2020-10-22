@@ -43,7 +43,7 @@
                             <label for="ic" class="col-md-4 col-form-label text-md-right">{{ __('IC Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="ic" type="text" class="form-control @error('ic') is-invalid @enderror" name="ic" value="{{ old('ic') }}" required autocomplete="ic" placeholder="01012345" autofocus>
+                                <input id="ic" type="text" class="form-control @error('ic') is-invalid @enderror" name="ic" value="{{ old('ic') }}" required autocomplete="ic" placeholder="01012345" autofocus >
 
                                 @error('ic')
                                     <span class="invalid-feedback" role="alert">

@@ -30,6 +30,14 @@ class RoadtaxController extends Controller
         //
     }
 
+    public function reason()
+    {
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
+
+        return view('reason')->with('user', $user);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -114,6 +122,12 @@ class RoadtaxController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $roadtax = Roadtax::find($id);
+        $roadtax->delete();
+
+        $ic = auth()->user()->ic;
+        $user = User::find($ic);
+
+        return redirect('/dashboard')->with('success', 'Resubmit your Roadtax');
     }
 }

@@ -32,3 +32,5 @@ Route::get('paymenterror', 'PaymentController@payment_error');
 Route::get('/delivery', function(){
     return view('delivery');
 });
+
+Route::get('reason', 'RoadtaxController@reason');

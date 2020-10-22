@@ -45,13 +45,11 @@
 
                     @endforeach
 
-                    <h5>{{ $roadtax->approval }}</h5>
+                    @if ($roadtax->approval !== 'Rejected')
+                        <h5>{{ $roadtax->approval }}</h5>
 
-                    @if ($roadtax->approval == 'Rejected')
-                        <div class="alert alert-danger" role="alert">
-                            <h4 class="alert-heading"></h4>
-                            <a href="/reason">{{ $roadtax->reason }}</a>
-                        </div>
+                        @else
+                            <a class="btn btn-danger" href="/reason">{{ $roadtax->approval }}</a>
                     @endif
 
                     @else
@@ -63,7 +61,7 @@
             <td>4</td>
             <td>Payment</td>
             <td class="text-center">
-                @if (count($user->roadtaxes) > 0 && count($user->bluecards)>0 && count($user->insurances)>0)
+                @if (count($user->roadtaxes) > 0 && count($user->bluecards)>0 && count($user->insurances)>0 && ($roadtax->approval == 'Approved'))
                     @foreach ($user->roadtaxes as $roadtax)
                         <a href="/payment" class="btn btn-primary">${{ $roadtax->price }}</a>
                     @endforeach
@@ -75,6 +73,24 @@
             </td>
         </tr>
     </table>
+        @if (count($user->roadtaxes) > 0 && ($roadtax->approval == 'Rejected'))
+             <span class="text-right">
+                {!!Form::open(['action' => ['RoadtaxController@destroy', $roadtax->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+                {{Form::hidden('_method', 'DELETE')}}
+                {{Form::submit('Resubmit', ['class' => 'btn btn-danger'])}}
+                {!!Form::close()!!}
+            </span>
+        @endif
+
+        @if (count($user->roadtaxes) > 0 && ($roadtax->paid == 'yes'))
+             <span class="text-right">
+                {!!Form::open(['action' => ['RoadtaxController@destroy', $roadtax->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+                {{Form::hidden('_method', 'DELETE')}}
+                {{Form::submit('Submit Another', ['class' => 'btn btn-primary'])}}
+                {!!Form::close()!!}
+            </span>
+        @endif
+
 </div>
 
 

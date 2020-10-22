@@ -42,25 +42,25 @@
 
         @if (count($user->bluecards) > 0)
             @if (auth()->user()->ic == $user->ic)
-            <br>
+            <hr>
+            <h5>Your Digital Bluecard</h5>
                 @foreach ($user->bluecards as $bluecard)
                     <a href="/bluecards/{{ $bluecard->id }}" class="btn btn-secondary">{{ $bluecard->plate_number }}</a>
                 @endforeach
             @endif
 
             @else
-            <br>
-            <h4>You haven't upload any Bluecard yet</h4>
+                <br>
+                <h5>You haven't upload any Bluecard yet</h5>
         @endif
 
         <br><br>
         <a class="btn btn-primary" href="/bluecards/create" role="button">Upload Bluecard</a>
-
-        <hr>
-
+        <br>
             @if (count($user->insurances) > 0)
                 @if (auth()->user()->ic == $user->ic)
-                <br>
+                <hr>
+                <h5>Your Insurance</h5>
                     @foreach ($user->insurances as $insurance)
                         <a href="/insurances/{{ $insurance->id }}" class="btn btn-secondary">{{ $insurance->plate_number }}</a>
                     @endforeach
@@ -68,7 +68,7 @@
 
                 @else
                     <br>
-                    <h4>No Insurance found</h4>
+                    <h5>You haven't upload any Insurance yet</h5>
             @endif
 
         <br><br>

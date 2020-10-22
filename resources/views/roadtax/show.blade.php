@@ -12,7 +12,7 @@
                         <select class="form-control col-md-3" name="selectedBluecard">
                             @if ($user->bluecards)
                                 @foreach ($user->bluecards as $bluecard)
-                                    <option class="dropdown-item"  value="{{ $bluecard->id }}">{{$bluecard->plate}}{{$bluecard->number}}</option>
+                                    <option class="dropdown-item"  value="{{ $bluecard->id }}">{{$bluecard->plate_number}}</option>
                                 @endforeach
 
                                 @else

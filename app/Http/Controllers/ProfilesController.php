@@ -99,10 +99,14 @@ class ProfilesController extends Controller
             'fullname' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
+            'password' => 'required|password'
         ]);
 
         //Find the user
         $user = User::find($ic);
+        // if($request->input('password') ){
+
+        // }
         $user->username = $request->input('username');
         $user->fullname = $request->input('fullname');
         $user->address = $request->input('address');

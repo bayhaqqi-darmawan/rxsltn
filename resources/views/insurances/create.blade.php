@@ -14,7 +14,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-2">
+                {{-- <div class="col-2">
                     {{Form::label('plate', 'Plate')}}
                     {{Form::text('plate', '', ['class'=>'form-control', 'placeholder'=>'BAA'])}}
                 </div>
@@ -22,6 +22,10 @@
                 <div class="col-3">
                     {{Form::label('number', 'Number')}}
                     {{Form::text('number', '', ['class'=>'form-control', 'placeholder'=>'1234'])}}
+                </div> --}}
+                <div class="col-6">
+                    {{ Form::label('plate_number', 'Plate Number')}}
+                    {{Form::text('plate_number', $plate_number = Str::upper(Request::get('plate')).Request::get('number'), ['class'=>'form-control', 'placeholder'=>'BAA1234'])}}
                 </div>
             </div>
         <div class="form-group">
