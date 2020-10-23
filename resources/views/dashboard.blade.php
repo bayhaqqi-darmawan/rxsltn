@@ -62,9 +62,15 @@
             <td>Payment</td>
             <td class="text-center">
                 @if (count($user->roadtaxes) > 0 && count($user->bluecards)>0 && count($user->insurances)>0 && ($roadtax->approval == 'Approved'))
-                    @foreach ($user->roadtaxes as $roadtax)
-                        <a href="/payment" class="btn btn-primary">${{ $roadtax->price }}</a>
-                    @endforeach
+
+                    @if ($roadtax->paid !== 'yes')
+                        @foreach ($user->roadtaxes as $roadtax)
+                            <a href="/payment" class="btn btn-primary">${{ $roadtax->price }}</a>
+                        @endforeach
+
+                        @else
+                        <h5>Payment Successful</h5>
+                    @endif
 
                     @else
                     <h5>Not Available</h5>

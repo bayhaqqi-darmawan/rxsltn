@@ -11,276 +11,108 @@
                     <tr class="bg-light-gray">
                         <th class="text-uppercase">Time
                         </th>
-                        @if (count($days) > 0)
-                            @foreach ($days as $day)
-                                <th class="text-uppercase">
-                                    {{ $day->days }}
-                                </th>
-                            @endforeach
-                        @endif
-
+                        <th class="text-uppercase">Monday</th>
+                        <th class="text-uppercase">Tuesday</th>
+                        <th class="text-uppercase">Wednesday</th>
+                        <th class="text-uppercase">Thursday</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- {!! Form::open(['action' => ['ScheduleController@update', $schedule->id],'method' => 'POST']) !!} --}}
                     <tr>
                         <td class="align-middle">09:00am</td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Brunei-Muara</option>
-                                <option value="berakas">Berakas</option>
-                                <option value="burong pingai ayer">Burong Pingai Ayer</option>
-                                <option value="gadong">Gadong</option>
-                                <option value="kianggeh">Kianggeh</option>
-                                <option value="kilanas">Kilanas</option>
-                                <option value="kota batu">Kota Batu</option>
-                                <option value="lumapas">Lumapas</option>
-                                <option value="mentiri">Mentiri</option>
-                                <option value="pangkalan batu">Pangkalan Batu</option>
-                                <option value="peramu">Peramu</option>
-                                <option value="saba">Saba</option>
-                                <option value="sengkurong">Sengkurong</option>
-                                <option value="serasa">Serasa</option>
-                                <option value="sungai kebun">Sungai Kebun</option>
-                                <option value="tamoi">Tamoi</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Belait</option>
-                                <option value="bukit sawat">Bukit Sawat</option>
-                                <option value="kuala balai">Kuala Balai</option>
-                                <option value="kuala belait">Kuala Belait</option>
-                                <option value="labi">Labi</option>
-                                <option value="sukang">Sukang</option>
-                                <option value="seria">Seria</option>
-                                <option value="melilas">Melilas</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Tutong</option>
-                                <option value="keriam">Keriam</option>
-                                <option value="kiudang">Kiudang</option>
-                                <option value="lamunin">Lamunin</option>
-                                <option value="pekan tutong">Pekan Tutong</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="tanjong maya">Tanjong Maya</option>
-                                <option value="telisai">Telisai</option>
-                                <option value="ukong">Ukong</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Temburong</option>
-                                <option value="amo">Amo</option>
-                                <option value="bangar">Bangar</option>
-                                <option value="batu apoi">Batu Apoi</option>
-                                <option value="bokok">bokok</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="labu">Labu</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
+                        @foreach ($nines as $nine)
+                            <td>
+                                {{ $nine->place }}
+                            </td>
+                        @endforeach
                     </tr>
 
                     <tr>
                         <td class="align-middle">11:00am</td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Brunei-Muara</option>
-                                <option value="berakas">Berakas</option>
-                                <option value="burong pingai ayer">Burong Pingai Ayer</option>
-                                <option value="gadong">Gadong</option>
-                                <option value="kianggeh">Kianggeh</option>
-                                <option value="kilanas">Kilanas</option>
-                                <option value="kota batu">Kota Batu</option>
-                                <option value="lumapas">Lumapas</option>
-                                <option value="mentiri">Mentiri</option>
-                                <option value="pangkalan batu">Pangkalan Batu</option>
-                                <option value="peramu">Peramu</option>
-                                <option value="saba">Saba</option>
-                                <option value="sengkurong">Sengkurong</option>
-                                <option value="serasa">Serasa</option>
-                                <option value="sungai kebun">Sungai Kebun</option>
-                                <option value="tamoi">Tamoi</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Belait</option>
-                                <option value="bukit sawat">Bukit Sawat</option>
-                                <option value="kuala balai">Kuala Balai</option>
-                                <option value="kuala belait">Kuala Belait</option>
-                                <option value="labi">Labi</option>
-                                <option value="sukang">Sukang</option>
-                                <option value="seria">Seria</option>
-                                <option value="melilas">Melilas</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Tutong</option>
-                                <option value="keriam">Keriam</option>
-                                <option value="kiudang">Kiudang</option>
-                                <option value="lamunin">Lamunin</option>
-                                <option value="pekan tutong">Pekan Tutong</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="tanjong maya">Tanjong Maya</option>
-                                <option value="telisai">Telisai</option>
-                                <option value="ukong">Ukong</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Temburong</option>
-                                <option value="amo">Amo</option>
-                                <option value="bangar">Bangar</option>
-                                <option value="batu apoi">Batu Apoi</option>
-                                <option value="bokok">bokok</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="labu">Labu</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
+                        @foreach ($elevens as $eleven)
+                            <td>
+                                {{ $eleven->place }}
+                            </td>
+                        @endforeach
                     </tr>
 
                     <tr>
                         <td class="align-middle">1:00pm</td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Brunei-Muara</option>
-                                <option value="berakas">Berakas</option>
-                                <option value="burong pingai ayer">Burong Pingai Ayer</option>
-                                <option value="gadong">Gadong</option>
-                                <option value="kianggeh">Kianggeh</option>
-                                <option value="kilanas">Kilanas</option>
-                                <option value="kota batu">Kota Batu</option>
-                                <option value="lumapas">Lumapas</option>
-                                <option value="mentiri">Mentiri</option>
-                                <option value="pangkalan batu">Pangkalan Batu</option>
-                                <option value="peramu">Peramu</option>
-                                <option value="saba">Saba</option>
-                                <option value="sengkurong">Sengkurong</option>
-                                <option value="serasa">Serasa</option>
-                                <option value="sungai kebun">Sungai Kebun</option>
-                                <option value="tamoi">Tamoi</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Belait</option>
-                                <option value="bukit sawat">Bukit Sawat</option>
-                                <option value="kuala balai">Kuala Balai</option>
-                                <option value="kuala belait">Kuala Belait</option>
-                                <option value="labi">Labi</option>
-                                <option value="sukang">Sukang</option>
-                                <option value="seria">Seria</option>
-                                <option value="melilas">Melilas</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Tutong</option>
-                                <option value="keriam">Keriam</option>
-                                <option value="kiudang">Kiudang</option>
-                                <option value="lamunin">Lamunin</option>
-                                <option value="pekan tutong">Pekan Tutong</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="tanjong maya">Tanjong Maya</option>
-                                <option value="telisai">Telisai</option>
-                                <option value="ukong">Ukong</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Temburong</option>
-                                <option value="amo">Amo</option>
-                                <option value="bangar">Bangar</option>
-                                <option value="batu apoi">Batu Apoi</option>
-                                <option value="bokok">bokok</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="labu">Labu</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
+                        @foreach ($ones as $one)
+                            <td>
+                                {{ $one->place }}
+                            </td>
+                        @endforeach
                     </tr>
 
                     <tr>
                         <td class="align-middle">3:00pm</td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Brunei-Muara</option>
-                                <option value="berakas">Berakas</option>
-                                <option value="burong pingai ayer">Burong Pingai Ayer</option>
-                                <option value="gadong">Gadong</option>
-                                <option value="kianggeh">Kianggeh</option>
-                                <option value="kilanas">Kilanas</option>
-                                <option value="kota batu">Kota Batu</option>
-                                <option value="lumapas">Lumapas</option>
-                                <option value="mentiri">Mentiri</option>
-                                <option value="pangkalan batu">Pangkalan Batu</option>
-                                <option value="peramu">Peramu</option>
-                                <option value="saba">Saba</option>
-                                <option value="sengkurong">Sengkurong</option>
-                                <option value="serasa">Serasa</option>
-                                <option value="sungai kebun">Sungai Kebun</option>
-                                <option value="tamoi">Tamoi</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Belait</option>
-                                <option value="bukit sawat">Bukit Sawat</option>
-                                <option value="kuala balai">Kuala Balai</option>
-                                <option value="kuala belait">Kuala Belait</option>
-                                <option value="labi">Labi</option>
-                                <option value="sukang">Sukang</option>
-                                <option value="seria">Seria</option>
-                                <option value="melilas">Melilas</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Tutong</option>
-                                <option value="keriam">Keriam</option>
-                                <option value="kiudang">Kiudang</option>
-                                <option value="lamunin">Lamunin</option>
-                                <option value="pekan tutong">Pekan Tutong</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="tanjong maya">Tanjong Maya</option>
-                                <option value="telisai">Telisai</option>
-                                <option value="ukong">Ukong</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="mukim" class="form-control">
-                                <option value="">Temburong</option>
-                                <option value="amo">Amo</option>
-                                <option value="bangar">Bangar</option>
-                                <option value="batu apoi">Batu Apoi</option>
-                                <option value="bokok">bokok</option>
-                                <option value="rambai">Rambai</option>
-                                <option value="labu">Labu</option>
-                                <option value="public holiday">Public Holiday</option>
-                            </select>
-                        </td>
+                        @foreach ($threes as $three)
+                            <td>
+                                {{ $three->place }}
+                            </td>
+                        @endforeach
                     </tr>
                 </tbody>
             </table>
-            <div class="text-center">
+
+
+            <table class="table table-bordered table-responsive">
+                <th colspan="2">Edit Schedule</th>
+                <tr>
+                    <td>select day</td>
+                    {{-- {!! Form::open(['action' => ['ScheduleController@update', $days_id, $hours_id, $place],'method' => 'POST']) !!} --}}
+                    <td>
+                        {{ Form::select('days',
+                        [
+                            '1' => 'Monday',
+                            '2' => 'Tuesday',
+                            '3' => 'Wednesday',
+                            '4' => 'Thursday'
+                        ]
+                        ) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Time</td>
+                    <td>
+                        {{ Form::select('hours',
+                        [
+                            '' => '',
+                            '1' => '9:00am',
+                            '2' => '11.00am',
+                            '3' => '1:00pm',
+                            '4' => '3:00pm'
+                        ]
+                        ) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Place</td>
+                    <td>
+                        {{ Form::select('place',
+                            [
+                            'Berakas' => 'Berakas',
+                            'Gadong' => 'Gadong',
+                            'Sengkurong' => 'Sengkurong',
+                            'Serasa' => 'Serasa',
+                            'Sungai Kebun' => 'Sungai Kebun',
+                            'Bukit Sawat' => 'Bukit Sawat',
+                            'Kuala Belait' => 'Kuala Belait',
+                            'Labi' => 'Labi',
+                            'Keriam' => 'Keriam',
+                            'Lamunin' => 'Lamunin',
+                            'Amo' => 'Amo',
+                            'Bangar' => 'Berakas',
+                            'Public Holiday' => 'Public Holiday'
+                            ]
+                        )
+                        }}
+
+                    </td>
+                </tr>
+            </table>
+            <div class="">
                 {{Form::hidden('_method','PUT')}}
                     {{Form::submit('Update', ['class'=>'btn btn-primary'])}}
                 {!! Form::close() !!}

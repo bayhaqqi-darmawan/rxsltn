@@ -26,13 +26,13 @@ class PaymentController extends Controller
         $ic = auth()->user()->ic;
         $user = User::find($ic);
         // dd($user);
-        $roadtax = Roadtax::find($user)->first();
-        // dd($roadtax);
 
-        if($roadtax){
+        $roadtaxes = $user->roadtaxes;
+
+        foreach ($roadtaxes as $roadtax){
             $price = $roadtax->price;
         }
-        return view('payments.index');
+        return view('payments.index')->with('price', $price);
     }
 
     public function charge(Request $request)
@@ -42,7 +42,7 @@ class PaymentController extends Controller
             try {
                 $response = $this->gateway->purchase(array(
                     'amount' => $request->input('amount'),
-                    'currency' => env('PAYPAL_CURRENCY'),
+                    'currency' => 'BND',
                     'returnUrl' => url('paymentsuccess'),
                     'cancelUrl' => url('paymenterror'),
                 ))->send();

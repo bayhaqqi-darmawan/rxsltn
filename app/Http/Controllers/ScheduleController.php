@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Day;
 use App\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -64,11 +65,12 @@ class ScheduleController extends Controller
      */
     public function edit()
     {
-        $schedule = Schedule::all();
-        $days = Day::all();
-        // dd($days);
+        $nines = Schedule::find([1,5,9,13]);
+        $elevens = Schedule::find([2,6,10,14]);
+        $ones = Schedule::find([3,7,11,15]);
+        $threes = Schedule::find([4,8,12,16]);
 
-        return view('adminSchedule', compact('days', 'schedule'));
+        return view('adminSchedule', compact('nines', 'elevens', 'ones', 'threes'));
     }
 
     /**
@@ -78,21 +80,17 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $this-> validate($request, [
-            'days_id'=>'nullable',
-            'hours_id' => 'nullable',
-            'place' => 'nullable'
-        ]);
+        $selectedDay = $request->input('days');
+        $selectedHour = $request->input('hours');
+        $selectedPlace = $request->input('place');
 
-        //Find the user
+        $schedule = DB::table('schedule');
 
-        $schedule = Schedule::find($id);
-        $schedule->days_id = $request->input('days_id');
-        $schedule->hours_id = $request->input('hours_id');
-        $schedule->place = $request->input('place');
-        $schedule-> save();
+        // $updateSchedule = Schedule::where('days_id', $selectedDay && 'hours_id', $selectedHour)->update('place' => $selectedPlace);
+
+
 
         return redirect('adminSchedule')->with('success', 'Schedule Updated!');
     }

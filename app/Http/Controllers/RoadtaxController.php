@@ -130,4 +130,9 @@ class RoadtaxController extends Controller
 
         return redirect('/dashboard')->with('success', 'Resubmit your Roadtax');
     }
+
+    public function paid($paid)
+    {
+        
+    }
 }

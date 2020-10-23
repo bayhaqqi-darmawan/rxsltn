@@ -33,3 +33,7 @@ Route::get('/delivery', 'ScheduleController@index')->middleware('verified');;
 Route::get('/schedule', 'ScheduleController@edit');
 
 Route::get('reason', 'RoadtaxController@reason');
+
+Route::get('/receipt', function(){
+    return view('receipt.index');
+});

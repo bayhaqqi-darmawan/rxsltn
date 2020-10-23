@@ -13,7 +13,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-6">
-                    {{Form::label('exp', 'Expiry Date')}}
+                    {{Form::label('exp', "Road-tax's expiry date")}}
                     {{Form::date('exp', '', ['class'=>'form-control', 'placeholder'=>'Expiry Date'])}}
                 </div>
 
