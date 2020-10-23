@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes(['verify' => true]);
 
 Route::get('/','PagesController@index');
-Route::resource('posts', 'PostsController');
 Route::resource('profiles', 'ProfilesController')->middleware('verified');
-Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard', 'DashboardController@index')->middleware('verified');
 Route::resource('roadtax', 'RoadtaxController')->middleware('verified');
 Route::resource('bluecards', 'BluecardsController')->middleware('verified');
 Route::resource('insurances', 'InsurancesController')->middleware('verified');
@@ -29,8 +28,8 @@ Route::post('charge', 'PaymentController@charge');
 Route::get('paymentsuccess', 'PaymentController@payment_success');
 Route::get('paymenterror', 'PaymentController@payment_error');
 
-Route::get('/delivery', function(){
-    return view('delivery');
-});
+Route::get('/delivery', 'ScheduleController@index')->middleware('verified');;
+
+Route::get('/schedule', 'ScheduleController@edit');
 
 Route::get('reason', 'RoadtaxController@reason');

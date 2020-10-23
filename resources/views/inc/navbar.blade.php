@@ -18,6 +18,10 @@
                                     <a href="/admins" class="nav-link">Admin Panel</a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a href="/schedule" class="nav-link">Edit Schedule</a>
+                                </li>
+
                                 @else
                                     <li class="nav-item">
                                         <a href="/dashboard" class="nav-link">Dashboard</a>

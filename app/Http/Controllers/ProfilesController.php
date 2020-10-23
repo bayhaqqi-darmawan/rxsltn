@@ -7,6 +7,7 @@ use App\Bluecard;
 use App\User;
 Use App\Insurance;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfilesController extends Controller
 {
@@ -104,16 +105,18 @@ class ProfilesController extends Controller
 
         //Find the user
         $user = User::find($ic);
-        // if($request->input('password') ){
+        $inputPass = $request->input('password');
+        $currentPass = $user->password;
+        if (Hash::check($inputPass, $currentPass)){
+            $user->username = $request->input('username');
+            $user->fullname = $request->input('fullname');
+            $user->address = $request->input('address');
+            $user->phone_number = $request->input('phone_number');
+            $user-> save();
+        }
 
-        // }
-        $user->username = $request->input('username');
-        $user->fullname = $request->input('fullname');
-        $user->address = $request->input('address');
-        $user->phone_number = $request->input('phone_number');
-        $user-> save();
 
-        return redirect('dashboard')->with('success', 'Profile Updated!');
+        return redirect("profiles/$ic")->with('success', 'Profile Updated!');
     }
 
     /**

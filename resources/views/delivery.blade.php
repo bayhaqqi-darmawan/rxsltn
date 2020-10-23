@@ -6,7 +6,7 @@
             <img src="img/content/timetable.png" alt="">
         </div>
         <div class="table-responsive">
-            <table class="table table-bordered text-center">
+            <table class="table table-bordered table-primary text-center">
                 <thead>
                     <tr class="bg-light-gray">
                         <th class="text-uppercase">Time
@@ -20,96 +20,38 @@
                 <tbody>
                     <tr>
                         <td class="align-middle">09:00am</td>
-                        <td>
-                            <div class="margin-10px-top font-size14">9:00-10:00</div>
-                            <div class="font-size13 text-light-gray">Ivana Wong</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">9:00-10:00</div>
-                            <div class="font-size13 text-light-gray">Marta Healy</div>
-                        </td>
-
-                        <td>
-                            <div class="margin-10px-top font-size14">9:00-10:00</div>
-                            <div class="font-size13 text-light-gray">Ivana Wong</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">9:00-10:00</div>
-                            <div class="font-size13 text-light-gray">Ivana Wong</div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">10:00am</td>
-                        <td>
-                            <div class="margin-10px-top font-size14">10:00-11:00</div>
-                            <div class="font-size13 text-light-gray">Ivana Wong</div>
-                        </td>
-                        <td class="bg-light-gray">
-
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">10:00-11:00</div>
-                            <div class="font-size13 text-light-gray">Kate Alley</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">10:00-11:00</div>
-                            <div class="font-size13 text-light-gray">Marta Healy</div>
-                        </td>
+                        @foreach ($nines as $nine)
+                            <td>
+                                {{ $nine->place }}
+                            </td>
+                        @endforeach
                     </tr>
 
                     <tr>
                         <td class="align-middle">11:00am</td>
-                        <td>
-                            <div class="margin-10px-top font-size14">11:00-12:00</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">11:00-12:00</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">11:00-12:00</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">11:00-12:00</div>
-                        </td>
+                        @foreach ($elevens as $eleven)
+                            <td>
+                                {{ $eleven->place }}
+                            </td>
+                        @endforeach
                     </tr>
 
                     <tr>
-                        <td class="align-middle">12:00pm</td>
-                        <td class="bg-light-gray">
-
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">12:00-1:00</div>
-                            <div class="font-size13 text-light-gray">Kate Alley</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">12:00-1:00</div>
-                            <div class="font-size13 text-light-gray">Ivana Wong</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">12:00-1:00</div>
-                            <div class="font-size13 text-light-gray">Ivana Wong</div>
-                        </td>
+                        <td class="align-middle">1:00pm</td>
+                        @foreach ($ones as $one)
+                            <td>
+                                {{ $one->place }}
+                            </td>
+                        @endforeach
                     </tr>
 
                     <tr>
-                        <td class="align-middle">01:00pm</td>
-                        <td>
-                            <div class="margin-10px-top font-size14">1:00-2:00</div>
-                            <div class="font-size13 text-light-gray">James Smith</div>
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">1:00-2:00</div>
-                            <div class="font-size13 text-light-gray">Ivana Wong</div>
-                        </td>
-                        <td class="bg-light-gray">
-
-                        </td>
-                        <td>
-                            <div class="margin-10px-top font-size14">1:00-2:00</div>
-                            <div class="font-size13 text-light-gray">James Smith</div>
-                        </td>
+                        <td class="align-middle">3:00pm</td>
+                        @foreach ($threes as $three)
+                            <td>
+                                {{ $three->place }}
+                            </td>
+                        @endforeach
                     </tr>
                 </tbody>
             </table>

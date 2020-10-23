@@ -25,6 +25,11 @@
                     {{Form::text('phone_number', $user->phone_number, ['class'=>'form-control', 'placeholder'=>'Phone Number'])}}
                 </div>
 
+                <div class="form-group">
+                    {{Form::label('password', 'Your Current Password')}}
+                    {{Form::password('password',  ['class'=>'form-control'])}}
+                </div>
+
                 {{Form::hidden('_method','PUT')}}
                 {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
             {!! Form::close() !!}
